@@ -32,7 +32,7 @@
         <td>{{$customer->last_name}}</td>
         <td>{{$customer->email}}</td>
         <td>{{$customer->phonenumber}}</td>
-        <td><a href="" class="btn btn-secondary">Update</a> || <a href="" class="btn btn-danger">Delete</a>|| <a href="/showcustomer/{{$customer->id}}">Show</a></td>
+        <td><a href="/customers/{{$customer->id}}/edit" class="btn btn-outline-info">Update</a> || <a href="/customers/{{$customer->id}}"class="btn btn-outline-primary" >Show</a></td>
     </tr>
 
     @endforeach

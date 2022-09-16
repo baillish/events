@@ -7,7 +7,7 @@
 <h1>email:{{$customer->email}}</h1>
 <h1>phonenumber:{{$customer->phonenumber}}</h1>
 
-<form action="/deletecustomer/{{$customer->id}}" method="POST">
+<form action="/customers/{{$customer->id}}">
     @method('delete')
     @csrf
 
