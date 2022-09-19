@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Events extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'email',
-        'first_name',
-        'phonenumber',
-        'last_name',
+        'eventname',
+        'location',
+        'customer_id',
+        
         
     ];
 
-    public function events(){
-
-        return $this->hasMany(Event::class);
-
-
+    public function customers (){
+        return $this->belongsTo(Customer::class);
     }
 }

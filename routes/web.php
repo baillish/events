@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Models\User;
 use App\Models\Admin;
@@ -19,63 +21,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/products' , function(){
-    $products = Product::get();
-    return view('products/all-products' , ['products'=>$products]);
-});
+Route::get('/products' , [ProductController::class , 'index']);
 
-Route::get('/products/new', function(){
-
-    return view ('products/create-product'); 
-
-})->middleware('auth');
-
-Route::get('/products/{id}',function(){
-     return view ('products/show-product');
-});
+Route::get('/products/new', [ProductController::class , 'createPage'])->middleware('auth');
 
 
-Route:: post('/products', function(Request $request){
+Route:: post('/products', [ProductController::class , 'add']);
 
-       Product::create([
+Route:: get('/products/{id}/edit',[ProductController::class , 'editPage']);
 
-            'name' => $request->name,
-            'price' => $request->price,
-            'quantity'=> $request->quantity,
-            'image'=>$request->image,
-       ]);
+Route:: get('/products/{id}',[ProductController::class , 'showProduct']);
 
-       return redirect('/products');
-    
-});
-Route:: get('/products/{id}/edit',function ($id){
-    $product =  Product::find($id);
+Route::patch('/products/{id}',[ProductController::class , 'update']);
 
-    return view ('products/edit-product' , ['product'=>$product]);
-});
-Route:: get('/products/{id}',function ($id){
-
-   $product =  Product::find($id);
-
-    return view ('products/show-product' , ['product'=>$product]);
-});
-
-Route::patch('/products/{id}',function(Request $request , $id){
-    $product = Product::find($id);
-    $product->name = $request->name;
-    $product->quantity = $request->quantity;
-    $product->price = $request->price;
-    $product->image = $request->image;
-    $product->save();
-     return redirect('/products');
-
- });
-
- Route::delete('/products{id}' , [ProductController::class , 'delete']);
+ Route::delete('/products/{id}' , [ProductController::class , 'delete']);
 
 //Authentication
 
@@ -113,76 +75,27 @@ Route:: get('/login',function (){
 
      };
 
-     return redirect("/allproducts");
+     return redirect("/products");
 
  });
 
  //Customers Routes
 
- Route::get('/customers/new',function(){
-    return view ('customers/create-customers');
- });
+ Route::get('/customers/new',[CustomerController::class , 'createCustomerPage']);
 
- Route::post('/customers',function(Request $request){
+ Route::post('/customers' , [CustomerController::class , 'storeCustomer']);
 
-    Customer::create([
+ Route::get('/customers',[CustomerController::class, 'index']);
 
-        'first_name'=> $request->fname,
-        'last_name'=> $request->lname,
-        'phonenumber'=> $request->phoneno,
-        'email'=> $request->email,
-    ]);
+ Route::get('/customers/{id}',[CustomerController::class , 'show']);
 
-    return redirect('/products');
-    
- });
- Route::get('/customers',function(){
+ Route::delete('/customers/{id}', [CustomerController::class , 'delete']);
 
-    $customers = Customer::paginate(3);
-    return view ('customers/all-customers' , ['customers'=>$customers]);
- });
+ Route::get('/customers/{id}/edit',[CustomerController::class , 'updatePage']);
 
- Route::get('/customers/{id}',function($id){
+ Route::patch('/customers/{id}',[CustomerController::class , 'update']);
 
-    $customer = Customer::find($id);
+Route::get('/events/new',[EventController::class ,'create']);
 
-   
-    return view ('customers/show-customer' , ['customer'=>$customer]);
- });
-
- Route::delete('/customers/{id}', function ($id) {
-
-    $customer = Customer::find($id);
-    $customer->delete();
-
-    return redirect("/customers");
-     
- });
-
- Route::get('/customers/{id}/edit',function(Request $request , $id){
-
-    $customer = Customer::find($id);
-
-    return view('customers/update-customers' , ['customer'=>$customer]);
-
-    
- });
- Route::patch('/customers/{id}',function(Request $request , $id){
-    $customer = Customer::find($id);
-    $customer->first_name = $request->fname;
-    $customer->last_name = $request->lname;
-    $customer->phonenumber = $request->phoneno;
-    $customer->email = $request->email;
-    $customer->save();
-     return redirect('/customers');
-    
- });
-
-
-
-
-
-
-
-
+Route::post('/events',[EventController::class ,'store']);
 
