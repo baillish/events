@@ -11,6 +11,9 @@ class EventController extends Controller
  
     public function index()
     {
+
+        $events = Events::get();
+        return view('Events/index', ['events'=>$events]);
         
     }
 
@@ -31,23 +34,47 @@ class EventController extends Controller
  
     public function show($id)
     {
-        //
+        $event=Events::find($id);
+
+
+        return view('Events/show' , ['events'=> $event]);
     }
 
   
     public function edit($id)
     {
-        //
+        $events = Events::find($id);
+        
+        $customers = Customer::get();
+
+      return view ('Events/update' ,['events'=>$events ,'customers'=>$customers]);
     }
 
   
     public function update(Request $request, $id)
     {
-        //
+
+        $events = Events ::find ($id);
+
+        $events->eventname = $request->name;
+        $events->location = $request->location;
+        $events->customer_id = $request->customer;
+
+        $events->save();
+
+        return redirect ('/events');
+         
     }
 
     public function destroy($id)
     {
-        
-    }
+        $events = Events ::find ($id);
+
+        $events -> delete();
+
+        return redirect('/events');
+
+
+}
+
 }

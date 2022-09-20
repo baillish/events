@@ -95,7 +95,16 @@ Route:: get('/login',function (){
 
  Route::patch('/customers/{id}',[CustomerController::class , 'update']);
 
+ Route::get('/events',[EventController::class, 'index']);
+
 Route::get('/events/new',[EventController::class ,'create']);
 
 Route::post('/events',[EventController::class ,'store']);
 
+Route::get('/events/{id}',[EventController::class , 'show']);
+
+Route::get('/events/{id}/edit',[EventController::class , 'edit']);
+
+Route::patch('/events/{id}',[EventController::class , 'update']);
+
+Route::delete('/events/{id}', [EventController::class , 'destroy']);
