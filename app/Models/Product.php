@@ -15,4 +15,8 @@ class Product extends Model
         'quantity',
         'image',
     ];
+    public function events(){
+        return $this->belongsToMany(Event::class ,'event_products');
+    }
 }
+

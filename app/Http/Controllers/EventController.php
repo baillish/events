@@ -12,8 +12,9 @@ class EventController extends Controller
     public function index()
     {
 
-        $events = Events::get();
-        return view('Events/index', ['events'=>$events]);
+        $events = Events::find(1);
+        dd($events->products);
+        // return view('Events/index', ['events'=>$events]);
         
     }
 
@@ -34,8 +35,9 @@ class EventController extends Controller
  
     public function show($id)
     {
-        $event=Events::find($id);
+        $event=Events::find(1);
 
+        dd($event->customers());
 
         return view('Events/show' , ['events'=> $event]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
@@ -108,3 +109,9 @@ Route::get('/events/{id}/edit',[EventController::class , 'edit']);
 Route::patch('/events/{id}',[EventController::class , 'update']);
 
 Route::delete('/events/{id}', [EventController::class , 'destroy']);
+
+Route::get('/bookings/new',[BookingsController::class, 'create']);
+
+Route::post('/bookings',[BookingsController::class, 'store']);
+
+

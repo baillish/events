@@ -10,7 +10,7 @@ class CustomerController extends Controller
 
     function index(){
 
-        $customers = Customer::paginate(3);
+        $customers = Customer::paginate();
         return view ('customers/all-customers' , ['customers'=>$customers]);
      }
 
