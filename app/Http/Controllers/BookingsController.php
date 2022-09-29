@@ -13,9 +13,11 @@ class BookingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        
+    public function index(){
+        $events = Events::get();
+        $products = Product::get();
+
+        return view ('bookings/all-bookings' , ['events'=>$events , 'products'=>$products]);  
         
     }
 
@@ -40,9 +42,9 @@ class BookingsController extends Controller
      */
     public function store(Request $request)
     {
-        foreach($request->products as $product){
-            Events::find($request->events)->products()->attach([$product]);
-        }
+
+        Events::find($request->events)->products()->attach([$request -> products]);
+
 
     }
 
@@ -52,8 +54,11 @@ class BookingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
+        $events = Events::find($id);
+        $product =  Product::find($id);
+       
+        return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);
         //
     }
 
@@ -63,9 +68,13 @@ class BookingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+
+        $events = Events::find($id);
+        $product =  Product::find($id);
+    
+
+      return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);
     }
 
     /**
@@ -75,8 +84,10 @@ class BookingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
+       
+        $events = Events::find($id);
+        $product =  Product::find($id);
         //
     }
 
@@ -86,8 +97,14 @@ class BookingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
+
+        $events = Events::find($id);
+        $product =  Product::find($id);
+        
+        $events->$product ->delete();
+    
+         return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);    
         //
     }
 }

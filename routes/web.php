@@ -110,8 +110,14 @@ Route::patch('/events/{id}',[EventController::class , 'update']);
 
 Route::delete('/events/{id}', [EventController::class , 'destroy']);
 
+Route::get('/bookings',[BookingsController::class, 'index']);
+
 Route::get('/bookings/new',[BookingsController::class, 'create']);
 
 Route::post('/bookings',[BookingsController::class, 'store']);
 
+Route::get('/bookings/{id}',[BookingsController::class, 'show']);
 
+Route::patch('/bookings/{id}',[BookingsController::class, 'update']);
+
+Route::delete('/bookings/{id}',[BookingsController::class, 'destroy']);
