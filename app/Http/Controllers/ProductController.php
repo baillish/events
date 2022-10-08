@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -12,7 +13,12 @@ class ProductController extends Controller
         $products = Product::get();
         return view('products/all-products' , ['products'=>$products]);
     }
+    // function generatePdf(){
 
+    //     $product = Product::all();
+    //     $pdf->loadView('pdf_view' , [$product]);
+    //     return $pdf->download('products.pdf');
+    // }
     function createPage(){
 
         return view ('products/create-product'); 

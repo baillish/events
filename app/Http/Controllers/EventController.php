@@ -12,9 +12,9 @@ class EventController extends Controller
     public function index()
     {
 
-        $events = Events::find(1);
-        dd($events->products);
-        // return view('Events/index', ['events'=>$events]);
+        $events = Events::get();
+        // dd($events->products);
+        return view('Events/index', ['events'=>$events]);
         
     }
 

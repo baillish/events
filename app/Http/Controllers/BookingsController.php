@@ -18,10 +18,11 @@ class BookingsController extends Controller
      */
     public function index(){
 
-        $data = DB::table('bookings')->join('customers' , 'bookings.customer_id' , 'customers.id')
-        ->join('events' , 'bookings.event_id' , 'events.id')
-        ->join('products' , 'bookings.product_id' , 'products.id')->get(['bookings.id' , 'bookings.quantity' , 'bookings.price', 'customers.id', 'customers.first_name','customers.last_name','products.id', 'products.name', 'events.id','events.eventname']);
-       
+        $data = DB::table('bookings')->join('customers' , 'customers.id' , 'bookings.customer_id')
+        ->join('events' , 'events.id' ,'=', 'bookings.event_id')
+        ->join('products' , 'products.id' ,'=', 'bookings.product_id')
+        ->get(['bookings.id' , 'bookings.price' , 'bookings.quantity' , 'bookings.customer_id'  ,'customers.first_name', 'customers.last_name' , 'bookings.event_id', 'events.eventname' , 'bookings.product_id' , 'products.name']);
+     
         return view ('bookings/index' , ['data'=>$data]);  
         
     }
@@ -51,7 +52,7 @@ class BookingsController extends Controller
 
         $product = Product::find($request->products);
         Booking::create(["event_id"=>$request->events, "product_id"=>$request->products, "customer_id"=>$request->customers, "quantity"=>$request->quantity,"price"=>(130*$product->price/100)*$request->quantity]);
-
+        return redirect('/bookings');
 
     }
 
@@ -62,58 +63,37 @@ class BookingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $events = Events::find($id);
-        $product =  Product::find($id);
-
-
-       
-        return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);
-        //
+        $data = Booking::find($id);
+        return view ('bookings/show' , ['data'=>$data]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit($id){
 
-        $events = Events::find($id);
-        $product =  Product::find($id);
-    
+        $booking = Booking::find($id);
+        $events = Events::get();
+        $product =  Product::get();
+        $customers = Customer::get();
 
-      return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);
+
+        return view ('bookings/edit' , ['events'=>$events , 'products'=> $product , 'customers'=>$customers , 'booking' => $booking]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id){
        
-        $events = Events::find($id);
-        $product =  Product::find($id);
-        //
+        $booking = Booking::find($id);
+        $booking->event_id = $request->events;
+        $booking->customer_id = $request->customers;
+        $booking->product_id = $request->products;
+        $booking->quantity = $request->quantity;
+        $booking->save();
+        return redirect("/bookings");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id){
+        $booking = Booking::find($id);
 
-        $events = Events::find($id);
-        $product =  Product::find($id);
-        
-        $events->$product ->delete();
-    
-         return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);    
-        //
+        $booking->delete();
+       
+        return redirect('/bookings');
     }
 }

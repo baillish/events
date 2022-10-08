@@ -23,8 +23,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    $products = Product::get();
+    return view('welcome' , ['products'=>$products]);
 });
+
+Route::get('/pdf', [ProductController::class , 'generatePdf']);
+
+
 Route::get('/products' , [ProductController::class , 'index']);
 
 Route::get('/products/new', [ProductController::class , 'createPage'])->middleware('auth');
@@ -117,6 +122,8 @@ Route::get('/bookings/new',[BookingsController::class, 'create']);
 Route::post('/bookings',[BookingsController::class, 'store']);
 
 Route::get('/bookings/{id}',[BookingsController::class, 'show']);
+
+Route::get('/bookings/{id}/edit',[BookingsController::class, 'edit']);
 
 Route::patch('/bookings/{id}',[BookingsController::class, 'update']);
 

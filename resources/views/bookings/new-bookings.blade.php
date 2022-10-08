@@ -1,5 +1,4 @@
 @extends('layouts/App')
-
 @section('content')
 
 <div class="container mt-5" style="width: 50%">
@@ -7,23 +6,28 @@
 <form action="/bookings" method="post">
     @csrf
     <h1>Bookings Page</h1>
-
-    <select name="events" id="">
+<div class="form-group">
+    <select name="events" id="" class="form-select">
         @foreach ($events as $event)
         <option value="{{$event->id}}">{{$event->eventname}}</option>
         @endforeach
     </select>
+</div>
+<br>
+<div class="form-group">
 
-    <select name="products" id="">
-
+    <select name="products" id="" class="form-select">
         @foreach ($products as $product)
-
+    
         <option value="{{$product->id}}">{{$product->name}}</option>
             
         @endforeach
     </select>
+</div>
+<br>
+<div class="form-group">
 
-    <select name="customers" id="">
+    <select name="customers" id="" class="form-select">
 
         @foreach ($customers as $customer)
 
@@ -31,11 +35,12 @@
             
         @endforeach
     </select>
+</div>
+    <br>
+    <input type="text" name="quantity" class="form-control">
 
-    <input type="text" name="quantity">
 
-
-    <button type="submit">book</button>
+    <button type="submit" class="btn btn-success mt-3">book</button>
     
 @endsection
 </form>

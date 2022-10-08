@@ -1,10 +1,10 @@
-<h1 class="text-center">All products display</h1>
+
 
 @extends('layouts/App')
 
 @section('content')
 <div class="container mt-4" style="width: 40rem; margin-top: 10rem">
-    
+  <h1 class="text-center">All products display</h1>
     <div class="row"> 
     @foreach ($products as $product)
     <div class="col col-lg-4 col-md-4">
@@ -17,8 +17,7 @@
     </div>
   </div>
 </div>
-   
-       
+     
    @endforeach
 </div>
 </div>
