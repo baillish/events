@@ -8,10 +8,7 @@
     @csrf
     <h1>Bookings Page</h1>
 
-
-
     <select name="events" id="">
-
         @foreach ($events as $event)
         <option value="{{$event->id}}">{{$event->eventname}}</option>
         @endforeach
@@ -26,7 +23,17 @@
         @endforeach
     </select>
 
+    <select name="customers" id="">
+
+        @foreach ($customers as $customer)
+
+        <option value="{{$customer->id}}">{{$customer->first_name}}</option>
+            
+        @endforeach
+    </select>
+
     <input type="text" name="quantity">
+
 
     <button type="submit">book</button>
     

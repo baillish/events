@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Ramsey\Uuid\Type\Integer;
 
-class CreateEventProductsTable extends Migration
+class CreateBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,13 @@ class CreateEventProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('event_products', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('events_id')->unsigned();
-            $table->integer('products_id')->unsigned();
+            $table->integer('event_id');
+            $table->integer('product_id');
+            $table->integer('customer_id');
+            $table->integer('quntity');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateEventProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_products');
+        Schema::dropIfExists('bookings');
     }
 }

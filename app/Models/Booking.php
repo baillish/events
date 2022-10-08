@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Booking extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'price',
+        'event_id',
+        'product_id',
+        'customer_id',
         'quantity',
-        'image',
+        'price',
     ];
-    public function events(){
-        return $this->belongsTo(Event::class);
-    }
-}
 
+}

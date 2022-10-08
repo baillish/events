@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Events;
+use App\Models\Booking;
 use App\Models\Product;
+use App\Models\Customer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingsController extends Controller
 {
@@ -14,10 +17,12 @@ class BookingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $events = Events::get();
-        $products = Product::get();
 
-        return view ('bookings/all-bookings' , ['events'=>$events , 'products'=>$products]);  
+        $data = DB::table('bookings')->join('customers' , 'bookings.customer_id' , 'customers.id')
+        ->join('events' , 'bookings.event_id' , 'events.id')
+        ->join('products' , 'bookings.product_id' , 'products.id')->get(['bookings.id' , 'bookings.quantity' , 'bookings.price', 'customers.id', 'customers.first_name','customers.last_name','products.id', 'products.name', 'events.id','events.eventname']);
+       
+        return view ('bookings/index' , ['data'=>$data]);  
         
     }
 
@@ -30,8 +35,9 @@ class BookingsController extends Controller
     {
         $events = Events::get();
         $products = Product::get();
+        $customers= Customer::get();
 
-        return view('bookings/new-bookings' , ['events'=>$events , 'products'=>$products]);
+        return view('bookings/new-bookings' , ['events'=>$events , 'products'=>$products, 'customers'=>$customers]);
     }
 
     /**
@@ -43,7 +49,8 @@ class BookingsController extends Controller
     public function store(Request $request)
     {
 
-        Events::find($request->events)->products()->attach([$request -> products]);
+        $product = Product::find($request->products);
+        Booking::create(["event_id"=>$request->events, "product_id"=>$request->products, "customer_id"=>$request->customers, "quantity"=>$request->quantity,"price"=>(130*$product->price/100)*$request->quantity]);
 
 
     }
@@ -57,6 +64,8 @@ class BookingsController extends Controller
     public function show($id){
         $events = Events::find($id);
         $product =  Product::find($id);
+
+
        
         return view ('bookings/new-bookings' , ['events'=>$events , 'products'=> $product]);
         //

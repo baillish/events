@@ -21,6 +21,6 @@ class Events extends Model
         return $this->belongsTo(Customer::class);
     }
     public function products(){
-        return $this->belongsToMany(Product::class , 'event_products');
+        return $this->hasMany(Product::class);
     }
 }
