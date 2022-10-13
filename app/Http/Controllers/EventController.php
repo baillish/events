@@ -29,15 +29,16 @@ class EventController extends Controller
     {
         Events::create(['eventname'=>$request->name, 'location'=>$request->location, 'customer_id'=>$request->customer]);
 
-        return redirect('/events/new');
+        return redirect('bookings/new');
     }
 
  
     public function show($id)
     {
-        $event=Events::find(1);
+        $event=Events::find($id);
+        
 
-        dd($event->customers());
+        //dd($event->customers());
 
         return view('Events/show' , ['events'=> $event]);
     }

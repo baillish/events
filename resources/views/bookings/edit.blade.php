@@ -1,5 +1,5 @@
 @extends('layouts/App')
-@extends('layouts/navbar')
+
 @section('content')
 <div class="container mt-5" style="width: 50%">
 

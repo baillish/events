@@ -87,44 +87,44 @@ Route:: get('/login',function (){
 
  //Customers Routes
 
- Route::get('/customers/new',[CustomerController::class , 'createCustomerPage']);
+ Route::get('/customers/new',[CustomerController::class , 'createCustomerPage'])->middleware('auth');
 
- Route::post('/customers' , [CustomerController::class , 'storeCustomer']);
+ Route::post('/customers' , [CustomerController::class , 'storeCustomer'])->middleware('auth');
 
- Route::get('/customers',[CustomerController::class, 'index']);
+ Route::get('/customers',[CustomerController::class, 'index'])->middleware('auth');
 
- Route::get('/customers/{id}',[CustomerController::class , 'show']);
+ Route::get('/customers/{id}',[CustomerController::class , 'show'])->middleware('auth');
 
- Route::delete('/customers/{id}', [CustomerController::class , 'delete']);
+ Route::delete('/customers/{id}', [CustomerController::class , 'delete'])->middleware('auth');
 
- Route::get('/customers/{id}/edit',[CustomerController::class , 'updatePage']);
+ Route::get('/customers/{id}/edit',[CustomerController::class , 'updatePage'])->middleware('auth');
 
- Route::patch('/customers/{id}',[CustomerController::class , 'update']);
+ Route::patch('/customers/{id}',[CustomerController::class , 'update'])->middleware('auth');
 
- Route::get('/events',[EventController::class, 'index']);
+ Route::get('/events',[EventController::class, 'index'])->middleware('auth');
 
-Route::get('/events/new',[EventController::class ,'create']);
+Route::get('/events/new',[EventController::class ,'create'])->middleware('auth');
 
-Route::post('/events',[EventController::class ,'store']);
+Route::post('/events',[EventController::class ,'store'])->middleware('auth');
 
-Route::get('/events/{id}',[EventController::class , 'show']);
+Route::get('/events/{id}',[EventController::class , 'show'])->middleware('auth');
 
-Route::get('/events/{id}/edit',[EventController::class , 'edit']);
+Route::get('/events/{id}/edit',[EventController::class , 'edit'])->middleware('auth');
 
-Route::patch('/events/{id}',[EventController::class , 'update']);
+Route::patch('/events/{id}',[EventController::class , 'update'])->middleware('auth');
 
-Route::delete('/events/{id}', [EventController::class , 'destroy']);
+Route::delete('/events/{id}', [EventController::class , 'destroy'])->middleware('auth');
 
-Route::get('/bookings',[BookingsController::class, 'index']);
+Route::get('/bookings',[BookingsController::class, 'index'])->middleware('auth');
 
-Route::get('/bookings/new',[BookingsController::class, 'create']);
+Route::get('/bookings/new',[BookingsController::class, 'create'])->middleware('auth');
 
-Route::post('/bookings',[BookingsController::class, 'store']);
+Route::post('/bookings',[BookingsController::class, 'store'])->middleware('auth');
 
-Route::get('/bookings/{id}',[BookingsController::class, 'show']);
+Route::get('/bookings/{id}',[BookingsController::class, 'show'])->middleware('auth');
 
-Route::get('/bookings/{id}/edit',[BookingsController::class, 'edit']);
+Route::get('/bookings/{id}/edit',[BookingsController::class, 'edit'])->middleware('auth');
 
-Route::patch('/bookings/{id}',[BookingsController::class, 'update']);
+Route::patch('/bookings/{id}',[BookingsController::class, 'update'])->middleware('auth');
 
-Route::delete('/bookings/{id}',[BookingsController::class, 'destroy']);
+Route::delete('/bookings/{id}',[BookingsController::class, 'destroy'])->middleware('auth');

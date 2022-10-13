@@ -7,9 +7,9 @@
     <thead class="bg-success">
     <tr>
         <th>id</th>
-        <th>customer First Name</th>
-        <th>customer last Name</th>
-        <th>Event Name</th>
+        <th>Event id</th>
+        <th>customer id</th>
+        <th>Product id</th>
         <th>quantity</th>
         <th>price</th>
                

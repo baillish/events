@@ -22,7 +22,7 @@
           <a class="nav-link" href="/customers/new">Add Customer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/customers"> ALl Customers</a>
+          <a class="nav-link" href="/customers"> All Customers</a>
         </li>
 
         <li class="nav-item">
